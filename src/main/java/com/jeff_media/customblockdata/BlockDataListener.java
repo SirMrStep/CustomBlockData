@@ -152,10 +152,7 @@ final class BlockDataListener implements Listener {
     public void onPiston(BlockPistonRetractEvent event) {
         Block pistonHead = event.getBlock().getRelative(event.getDirection().getOppositeFace());
         if(CustomBlockData.hasCustomBlockData(pistonHead, plugin)) {
-            CustomBlockDataMoveEvent moveEvent = new CustomBlockDataMoveEvent(plugin, pistonHead, destinationBlock, event);
-            Bukkit.getPluginManager().callEvent(moveEvent);
-            if (moveEvent.isCancelled()) return;
-            getCbd(pistonHead).clear();
+            callAndRemove(pistonHead);
         }
         onPiston(event.getBlocks(), event);
     }
